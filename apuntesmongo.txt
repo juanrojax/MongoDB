@@ -2,5 +2,7 @@
 
 Para tener en cuenta al hacer la coneccion desde el clustes de mongo atlas y es fijarse en la IPWhite, se puede configurar para que detecte la actual o que permita conecciones desde cualquier lado
 
-la coneccion con el cluster seria mas o menos asi:
+la coneccion con el cluster seria mas o menos asi desde consola:
 mongo "mongodb+srv://clusterjuand-ridag.mongodb.net/" --username dbprueba
+
+Con mongo compass seria acceder a cluster y conectar con mongo compass, copiar y compass detecta que copiaste algo y si desdea pegarlo.
