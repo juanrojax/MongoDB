@@ -1,0 +1,6 @@
+190.9.208.84/32 
+
+Para tener en cuenta al hacer la coneccion desde el clustes de mongo atlas y es fijarse en la IPWhite, se puede configurar para que detecte la actual o que permita conecciones desde cualquier lado
+
+la coneccion con el cluster seria mas o menos asi:
+mongo "mongodb+srv://clusterjuand-ridag.mongodb.net/" --username dbprueba
