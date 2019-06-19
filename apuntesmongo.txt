@@ -6,3 +6,52 @@ la coneccion con el cluster seria mas o menos asi desde consola:
 mongo "mongodb+srv://clusterjuand-ridag.mongodb.net/" --username dbprueba
 
 Con mongo compass seria acceder a cluster y conectar con mongo compass, copiar y compass detecta que copiaste algo y si desdea pegarlo.
+
+//OPERACIONES CRUD
+    -use basededatos //para acceder o crear una base de datos
+    -db.inventory.insertOne({item:"nuevo", qty:100, tags:["cotton"], size:{h:28,w:35.5,uom:"cm"}})  //Insercion de Un registro, para inserta el formato es json pero en realidad mongo lo lee en BSON
+    -db.inventory.findOne() //Ver u registro el orden es natural y se hace por el id de documento
+    -el id mongo lo genera auomaticamente, pero se puede hacer una insercion con un id mongo lo reconocera
+    -db.inventory.insertMany( [
+   { item: "canvas", qty: 100, size: { h: 28, w: 35.5, uom: "cm" }, status: "A" },
+   { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "mat", qty: 85, size: { h: 27.9, w: 35.5, uom: "cm" }, status: "A" },
+   { item: "mousepad", qty: 25, size: { h: 19, w: 22.85, uom: "cm" }, status: "P" },
+   { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "P" },
+   { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+   { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+   { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" },
+   { item: "sketchbook", qty: 80, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+   { item: "sketch pad", qty: 95, size: { h: 22.85, w: 30.5, uom: "cm" }, status: "A" }
+] ) //InsertMany inserta un array de documentos
+    -db.coleccion.help //Muestra una ayuda de comenado que se pueden ejecutar
+    -db.inventory.find({item:"canvas"}) //Busca por igualdad uno o mas elementos
+    -db.inventory.find({item:"canvas"}).pretty() //Lo muestra de una forma mas bonita
+    -db.inventory.find({item:"canvas"}).count() //cuanta el resultado de la consulta
+    -db.inventory.findOne({_id:ObjectId('5d098939c0a31199736a8112')})
+    -db.inventory.findOne({_id:ObjectId('5d098939c0a31199736a8112'),qty:{$lte:101}}) //Operador AND seria por comas en mongo $lte es mayor que
+    # Condición OR con operador
+    -db.inventory.find( { $or: [ { status: "A" }, { qty: { $lt: 30 } } ] } 
+    #UPDATE
+    -db.inventory.updateOne({_id:ObjectId("5d098939c0a31199736a8112")},{$set:{qty:130}})
+    -db.inventory.updateMany(
+        { "qty": { $lt: 50 } },
+        {
+            $set: { "size.uom": "in", status: "P" },
+            $currentDate: { lastModified: true }
+        }
+    )
+    #DELETE
+    # Borrar muchos documentos de acuerdo a un filtro
+    db.inventory.deleteMany({ status : "A" })
+
+    db.inventory.find({status: "D"})
+    # Borrar un documento
+    db.inventory.deleteOne( { status: "D" } )
+
+    # Borrar todos los documentos de una base datos
+    db.inventory.deleteMany({})
+//OPERACIONES CRUD DESDE compass
+    Para buscar hay un barra filter donde seria como db.inventory.find({item:"canvas"})
+    Para agregar hay un lapiz en los documentos y desde alli se agrega una nueva columna o un update aqui se hace tambien
+    
